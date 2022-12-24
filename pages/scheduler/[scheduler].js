@@ -23,6 +23,18 @@ const Scheduler = ({ slots, id }) => {
               ></Typography>
               <Typography variant="h5" component="div"></Typography>
               <Typography variant="h2">Saroj Adhikari</Typography>
+              <Grid container>
+                <VideoChatIcon />
+                <Typography variant="body2">cal video</Typography>
+              </Grid>
+              <Grid container>
+                <AccessTimeIcon />
+                <Typography variant="body2">cal video</Typography>
+              </Grid>
+              <Grid container>
+                <LanguageIcon />
+                <Typography variant="body2">cal video</Typography>
+              </Grid>
             </CardContent>
           </Card>
         </Grid>
