@@ -3,8 +3,29 @@ import VideoChatIcon from "@mui/icons-material/VideoChat";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import LanguageIcon from "@mui/icons-material/Language";
 import styles from "../../styles/Scheduler.module.css";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 const Scheduler = ({ slots, id }) => {
+  let date = new Date();
+  const currYear = date?.getFullYear();
+  console.log(currYear, "currYear");
+  const currMonth = date?.getMonth();
   console.log(slots, "slots");
+  const days = ["Sun", " Mon", " Tue", "Wed", "Thu", " Fri", " Sat"];
+  const month = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
   return (
     <>
       <Grid
@@ -37,6 +58,36 @@ const Scheduler = ({ slots, id }) => {
               </Grid>
             </CardContent>
           </Card>
+        </Grid>
+        <Grid item xs={3.5}>
+          <Grid container justifyContent="space-between">
+            <div className="wrapper">
+              <header>
+                <p className="current-date"></p>
+                <Grid
+                  className="icons"
+                  container
+                  justifyContent="space-between"
+                >
+                  <Typography color="text.secondary" gutterBottom>
+                    {`${month[currMonth]} ${currYear}`}
+                  </Typography>
+                  <Grid item>
+                    <ArrowBackIosIcon fontSize="small" />
+                    <ArrowForwardIosIcon fontSize="small" />
+                  </Grid>
+                </Grid>
+              </header>
+              <div className="calendar">
+                <ul className="weeks">
+                  {days?.map((day) => {
+                    return <li>{day}</li>;
+                  })}
+                </ul>
+                <ul className="days"></ul>
+              </div>
+            </div>
+          </Grid>
         </Grid>
       </Grid>
     </>
