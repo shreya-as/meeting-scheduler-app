@@ -4,3 +4,22 @@
 .displayInfo {
   min-height: 330px;
 }
+.slot {
+  border: 1px solid #bbbcbe;
+  text-align: center;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 4px;
+}
+.slot:hover {
+  border: 1px solid black;
+  cursor: pointer;
+}
+.timeSlot {
+  max-height: 295px;
+  overflow-y: scroll;
+}
+.timeSlotContainer {
+  border: 1px solid #dde0e9;
+  border-radius: 4px;
+}

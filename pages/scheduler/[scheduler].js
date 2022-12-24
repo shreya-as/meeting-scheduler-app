@@ -5,19 +5,25 @@ import {
   CardContent,
   Grid,
   Typography,
+  ButtonGroup,
+  Link,
 } from "@mui/material";
 
 import styles from "../../styles/Scheduler.module.css";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import DisplayInfo from "../../components/DisplayInfo";
+import { useState } from "react";
+import { useRouter } from "next/router";
 const Scheduler = ({ slots, params }) => {
-  console.log(params, "params");
   let date = new Date();
   const currYear = date?.getFullYear();
   console.log(currYear, "currYear");
   const currMonth = date?.getMonth();
   console.log(slots, "slots");
+  const [timeSlots, setTimeSlots] = useState([]);
+  //handle toggle for hour format
+  const [hourFormat, set24HourFormat] = useState(false);
   const days = ["Sun", " Mon", " Tue", "Wed", "Thu", " Fri", " Sat"];
   const month = [
     "January",
@@ -40,6 +46,38 @@ const Scheduler = ({ slots, params }) => {
       time: slot,
     };
   });
+  const handleTime = (time) => {
+    setTimeSlots(time);
+  };
+  //   get time in 12 hour
+  const get12HourTime = () => {
+    let date = new Date(timeSlots[0]?.time);
+    let day = date.getDay();
+    return `${days[day]}, ${month[currMonth].slice(0, 3)} ${date.getDate()}`;
+  };
+  //   get am and pm
+  const formatAMAndPM = (date) => {
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    const data = hours >= 12 ? "pm" : "am";
+    hours %= 12;
+    console.log((hours %= 12), "test data");
+    hours = hours || 12;
+    minutes = minutes < 10 ? `0${minutes}` : minutes;
+    const strTime = `${hours}:${minutes}${data}`;
+    return strTime;
+  };
+  //   get 24 hour format
+  const get24HourTime = (date) => {
+    var date = new Date(date);
+    var hours = date.getHours(); // gives the value in 24 hours format
+    var minutes = date.getMinutes();
+    return `${hours}:${minutes}`;
+  };
+  //   handle toggle of hour format
+  const handleHour = (status) => {
+    set24HourFormat(status);
+  };
   return (
     <>
       <Grid
@@ -87,7 +125,12 @@ const Scheduler = ({ slots, params }) => {
                             : "weeksAndDays"
                         }
                       >
-                        <Button className="date-grid">{day}</Button>
+                        <Button
+                          className="date-grid"
+                          onClick={() => handleTime(time)}
+                        >
+                          {day}
+                        </Button>
                       </Grid>
                     );
                   })}
@@ -96,6 +139,37 @@ const Scheduler = ({ slots, params }) => {
             </div>
           </Grid>
         </Grid>
+        {timeSlots?.length > 0 && (
+          <Grid item xs={2} className={styles.timeSlotContainer}>
+            <Card>
+              <Grid container justifyContent="space-between">
+                <Typography color="text.secondary" gutterBottom>
+                  {get12HourTime()}
+                </Typography>
+                <ButtonGroup disableElevation>
+                  <Button onClick={() => handleHour(false)}>12h</Button>
+                  <Button onClick={() => handleHour(true)}>24h</Button>
+                </ButtonGroup>
+              </Grid>
+              <Grid className={styles.timeSlot}>
+                {timeSlots?.map((timeSlot) => {
+                  const updatedTime = new Date(timeSlot.time);
+                  return (
+                    <Grid className={styles.slot}>
+                      <Link href={`/book`}>
+                        <p>
+                          {hourFormat
+                            ? get24HourTime(updatedTime)
+                            : formatAMAndPM(updatedTime)}
+                        </p>
+                      </Link>
+                    </Grid>
+                  );
+                })}
+              </Grid>
+            </Card>
+          </Grid>
+        )}
       </Grid>
     </>
   );

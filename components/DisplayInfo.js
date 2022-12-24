@@ -3,6 +3,7 @@ import VideoChatIcon from "@mui/icons-material/VideoChat";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import LanguageIcon from "@mui/icons-material/Language";
 import React from "react";
+import { memo } from "react";
 
 const DisplayInfo = ({ params }) => {
   return (
@@ -16,7 +17,7 @@ const DisplayInfo = ({ params }) => {
             gutterBottom
           ></Typography>
           <Typography variant="h5" component="div"></Typography>
-          <Typography variant="h6">Saroj Adhikari</Typography>
+          <Typography variant="h6">Shreya Shahi</Typography>
           <Grid container>
             <VideoChatIcon />
             <Typography variant="body2">cal video</Typography>
@@ -35,4 +36,4 @@ const DisplayInfo = ({ params }) => {
   );
 };
 
-export default DisplayInfo;
+export default memo(DisplayInfo);
