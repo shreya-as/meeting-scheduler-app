@@ -1,11 +1,18 @@
-import { Avatar, Card, CardContent, Grid, Typography } from "@mui/material";
-import VideoChatIcon from "@mui/icons-material/VideoChat";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import LanguageIcon from "@mui/icons-material/Language";
+import {
+  Avatar,
+  Button,
+  Card,
+  CardContent,
+  Grid,
+  Typography,
+} from "@mui/material";
+
 import styles from "../../styles/Scheduler.module.css";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-const Scheduler = ({ slots, id }) => {
+import DisplayInfo from "../../components/DisplayInfo";
+const Scheduler = ({ slots, params }) => {
+  console.log(params, "params");
   let date = new Date();
   const currYear = date?.getFullYear();
   console.log(currYear, "currYear");
@@ -26,6 +33,13 @@ const Scheduler = ({ slots, id }) => {
     "November",
     "December",
   ];
+  const arrayOfDay = Object.values(slots)?.map((slot, i) => {
+    return {
+      day: i + 1,
+      availableTime: slot?.length > 0 ? true : false,
+      time: slot,
+    };
+  });
   return (
     <>
       <Grid
@@ -33,31 +47,8 @@ const Scheduler = ({ slots, id }) => {
         justifyContent="center"
         className={styles.calendarContainer}
       >
-        <Grid item xs={2}>
-          <Card>
-            <CardContent>
-              <Avatar alt="Remy Sharp" />
-              <Typography
-                sx={{ fontSize: 2 }}
-                color="text.secondary"
-                gutterBottom
-              ></Typography>
-              <Typography variant="h5" component="div"></Typography>
-              <Typography variant="h2">Saroj Adhikari</Typography>
-              <Grid container>
-                <VideoChatIcon />
-                <Typography variant="body2">cal video</Typography>
-              </Grid>
-              <Grid container>
-                <AccessTimeIcon />
-                <Typography variant="body2">cal video</Typography>
-              </Grid>
-              <Grid container>
-                <LanguageIcon />
-                <Typography variant="body2">cal video</Typography>
-              </Grid>
-            </CardContent>
-          </Card>
+        <Grid item xs={2} className={styles.displayInfo}>
+          <DisplayInfo params={params} />
         </Grid>
         <Grid item xs={3.5}>
           <Grid container justifyContent="space-between">
@@ -84,7 +75,23 @@ const Scheduler = ({ slots, id }) => {
                     return <li>{day}</li>;
                   })}
                 </ul>
-                <ul className="days"></ul>
+                <ul className="days">
+                  {arrayOfDay?.map(({ day, availableTime, time }) => {
+                    console.log(day, "day");
+                    return (
+                      <Grid
+                        key={day}
+                        className={
+                          availableTime
+                            ? "availableTime weeksAndDays"
+                            : "weeksAndDays"
+                        }
+                      >
+                        <Button className="date-grid">{day}</Button>
+                      </Grid>
+                    );
+                  })}
+                </ul>
               </div>
             </div>
           </Grid>

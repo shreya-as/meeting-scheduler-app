@@ -1,3 +1,6 @@
 .calendarContainer {
   margin: 6rem 3rem;
 }
+.displayInfo {
+  min-height: 330px;
+}
