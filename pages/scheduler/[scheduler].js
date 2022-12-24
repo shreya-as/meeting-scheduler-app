@@ -1,6 +1,34 @@
+import { Avatar, Card, CardContent, Grid, Typography } from "@mui/material";
+import VideoChatIcon from "@mui/icons-material/VideoChat";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import LanguageIcon from "@mui/icons-material/Language";
+import styles from "../../styles/Scheduler.module.css";
 const Scheduler = ({ slots, id }) => {
   console.log(slots, "slots");
-  return <>scheduler</>;
+  return (
+    <>
+      <Grid
+        container
+        justifyContent="center"
+        className={styles.calendarContainer}
+      >
+        <Grid item xs={2}>
+          <Card>
+            <CardContent>
+              <Avatar alt="Remy Sharp" />
+              <Typography
+                sx={{ fontSize: 2 }}
+                color="text.secondary"
+                gutterBottom
+              ></Typography>
+              <Typography variant="h5" component="div"></Typography>
+              <Typography variant="h2">Saroj Adhikari</Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
+    </>
+  );
 };
 // dynamic parameters have multiple pages
 export default Scheduler;
