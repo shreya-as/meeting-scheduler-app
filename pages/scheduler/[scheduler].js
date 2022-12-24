@@ -15,13 +15,20 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import DisplayInfo from "../../components/DisplayInfo";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { useAppDispatch } from "../../state/store/hooks";
+import { getSlotDisplaySuccessAction } from "../../state/redux/scheduler/schedulerSlice";
 const Scheduler = ({ slots, params }) => {
   let date = new Date();
   const currYear = date?.getFullYear();
   console.log(currYear, "currYear");
+  const dispatch = useAppDispatch();
   const currMonth = date?.getMonth();
   console.log(slots, "slots");
   const [timeSlots, setTimeSlots] = useState([]);
+  useEffect(() => {
+    dispatch(getSlotDisplaySuccessAction(params));
+  }, []);
   //handle toggle for hour format
   const [hourFormat, set24HourFormat] = useState(false);
   const days = ["Sun", " Mon", " Tue", "Wed", "Thu", " Fri", " Sat"];

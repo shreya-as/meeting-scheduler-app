@@ -16,24 +16,16 @@ export default function Home() {
   ];
   return (
     <>
+      <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+        Saroj Subedi
+      </Typography>
+      <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+        Test
+      </Typography>
       {meetings?.map((meeting) => {
         const { meetingName, time, id } = meeting;
         return (
           <>
-            <Typography
-              sx={{ fontSize: 14 }}
-              color="text.secondary"
-              gutterBottom
-            >
-              Saroj Subedi
-            </Typography>
-            <Typography
-              sx={{ fontSize: 14 }}
-              color="text.secondary"
-              gutterBottom
-            >
-              Test
-            </Typography>
             <Link href={`scheduler/${id}`} className={styles.link} key={id}>
               <Card className={styles.meetingCard}>
                 <CardContent>

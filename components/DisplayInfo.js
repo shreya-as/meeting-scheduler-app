@@ -4,8 +4,12 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import LanguageIcon from "@mui/icons-material/Language";
 import React from "react";
 import { memo } from "react";
+import { useAppSelector } from "../state/store/hooks";
+import { schedulerSelector } from "../state/store/selector";
 
 const DisplayInfo = ({ params }) => {
+  const { slots } = useAppSelector(schedulerSelector);
+  console.log(slots, "slots");
   return (
     <>
       <Card>
